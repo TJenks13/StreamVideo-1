@@ -44,34 +44,37 @@ std::string Account::report() const {
     int totalOriginals = 0;
     int totalHours = 0;
     int totalMinutes = 0;
-    for (std::vector<Stream>::const_iterator it = streams.begin(); it != streams.end(); ++it) {
+
+    auto loopStart = streams;
+    for(Stream& stream : loopStart) 
+    {
 
         // title of stream
-        output << '\t' << it->getVideo().getTitle();
+        output << '\t' << stream.getVideo().getTitle();
 
         // current total hours and minutes
-        totalHours += it->getVideo().getHours() * it->getOccurrences();
-        totalMinutes += it->getVideo().getMinutes() * it->getOccurrences();
+        totalHours += stream.getVideo().getHours() * stream.getOccurrences();
+        totalMinutes += stream.getVideo().getMinutes() * stream.getOccurrences();
 
         // stream counts and originals
         int streamCount = 0;
         int originals = 0;
-        switch (it->getVideo().getType()) {
+        switch (stream.getVideo().getType()) {
 
             // for movies, the stream count is the number of hours, with a minimum of 1
             case Video::MOVIE:
-                streamCount += it->getOccurrences() * (it->getVideo().getHours() ? it->getVideo().getHours() : 1);
+                streamCount += stream.getOccurrences() * (stream.getVideo().getHours() ? stream.getVideo().getHours() : 1);
                 break;
 
             // for TV shows, the stream count is just the number of streams
             case Video::TVSHOW:
-                streamCount += it->getOccurrences();
+                streamCount += stream.getOccurrences();
                 break;
 
             // for TV shows, the stream count is just the number of streams
             case Video::ORIGINAL:
-                originals += it->getOccurrences();
-                streamCount += it->getOccurrences();
+                originals += stream.getOccurrences();
+                streamCount += stream.getOccurrences();
                 break;
         }
 
@@ -108,13 +111,15 @@ std::string Account::data() const {
     std::string name = getName();
 
     // list of streams
-    for (std::vector<Stream>::const_iterator it = streams.begin(); it != streams.end(); ++it) {
+    auto loopStart = streams;
+    for(Stream& stream : loopStart) 
+    {
 
         // customer name
         output << name << ',';
 
         // stream type
-        switch (it->getVideo().getType()) {
+        switch (stream.getVideo().getType()) {
 
             // for movies, the stream count is the number of hours, with a minimum of 1
             case Video::MOVIE:
@@ -133,24 +138,24 @@ std::string Account::data() const {
         }       
 
         // stream title
-        output << ',' << it->getVideo().getTitle();
+        output << ',' << stream.getVideo().getTitle();
 
         // stream hours and minutes
-        output << ',' << (it->getVideo().getHours() * it->getOccurrences());
-        output << ',' << (it->getVideo().getMinutes() * it->getOccurrences());
+        output << ',' << (stream.getVideo().getHours() * stream.getOccurrences());
+        output << ',' << (stream.getVideo().getMinutes() * stream.getOccurrences());
 
         // stream counts
         output << ',';
-        switch (it->getVideo().getType()) {
+        switch (stream.getVideo().getType()) {
 
             // for movies, the stream count is the number of hours, with a minimum of 1
             case Video::MOVIE:
-                output << (it->getOccurrences() * (it->getVideo().getHours() ? it->getVideo().getHours() : 1));
+                output << (stream.getOccurrences() * (stream.getVideo().getHours() ? stream.getVideo().getHours() : 1));
                 break;
 
             // all others are just the number of occurrences
             default:
-                output << it->getOccurrences();
+                output << stream.getOccurrences();
                 break;
         }
 
