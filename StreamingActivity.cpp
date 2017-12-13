@@ -13,10 +13,37 @@
 #include "Stream.hpp"
 #include "Account.hpp"
 
+void loadVideos(std::vector<Video>& videos);
+
 int main() {
 
     // Load videos from data file
     std::vector<Video> videos;
+    loadVideos(videos);
+
+    // Account
+    Account customer("Fred");
+
+    // Some streams of these movies
+    Stream s1(videos[0], 3);
+    Stream s2(videos[1], 1);
+    Stream s3(videos[2], 2);
+
+    customer.addStream(s1);
+    customer.addStream(s2);
+    customer.addStream(s3);
+
+    // Output account streaming report
+    std::cout << customer.report() << '\n';
+
+    // Output account data report
+    std::cout << customer.data() << '\n';
+
+    return 0;
+}
+
+void loadVideos(std::vector<Video>& videos)
+{
     std::ifstream invideo("videos.csv");
     std::string line;
     while (getline(invideo, line)) {
@@ -65,24 +92,4 @@ int main() {
         videos.push_back(Video(title, type, hours, minutes, episodes));
     }
     invideo.close();
-
-    // Account
-    Account customer("Fred");
-
-    // Some streams of these movies
-    Stream s1(videos[0], 3);
-    Stream s2(videos[1], 1);
-    Stream s3(videos[2], 2);
-
-    customer.addStream(s1);
-    customer.addStream(s2);
-    customer.addStream(s3);
-
-    // Output account streaming report
-    std::cout << customer.report() << '\n';
-
-    // Output account data report
-    std::cout << customer.data() << '\n';
-
-    return 0;
 }
