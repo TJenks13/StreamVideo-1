@@ -49,15 +49,12 @@ TEST_CASE("Ensure getVideo() also returned correct data about vid")
     //Create Stream Object
     Stream vidInfo(vid,1);
 
-    //Create copy of vid object
-    Video vid2 = vidInfo.getVideo();
-
     //Test if getVideo() returns "Star Wars" from vid2
-    REQUIRE(vid2.getTitle() == "The Lord of the Rings: The Fellowship of the Ring");
-    REQUIRE(vid2.getType() == 0);
-    REQUIRE(vid2.getHours() == 3);
-    REQUIRE(vid2.getMinutes() == 18);
-    REQUIRE(vid2.getEpisodes() == 0);
+    REQUIRE(vidInfo.getVideo().getTitle() == "The Lord of the Rings: The Fellowship of the Ring");
+    REQUIRE(vidInfo.getVideo().getType() == 0);
+    REQUIRE(vidInfo.getVideo().getHours() == 3);
+    REQUIRE(vidInfo.getVideo().getMinutes() == 18);
+    REQUIRE(vidInfo.getVideo().getEpisodes() == 0);
 
 }
 
