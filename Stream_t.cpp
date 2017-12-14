@@ -49,7 +49,7 @@ TEST_CASE("Ensure getVideo() also returned correct data about vid")
     //Create Stream Object
     Stream vidInfo(vid,1);
 
-    //Test if getVideo() returns "Star Wars" from vid2
+    //Test if getVideo() returns all correct data from vid
     REQUIRE(vidInfo.getVideo().getTitle() == "The Lord of the Rings: The Fellowship of the Ring");
     REQUIRE(vidInfo.getVideo().getType() == 0);
     REQUIRE(vidInfo.getVideo().getHours() == 3);
