@@ -22,7 +22,7 @@ public:
     std::string getName() const;
 
     // add a new stream
-    void addStream(const Stream& stream);
+    void addStream(const Stream* stream);
 
     // account streaming report
     std::string report() const;
@@ -32,7 +32,7 @@ public:
 
 private:
     std::string name;
-    std::vector<Stream> streams;
+    std::vector<const Stream*> streams;
 };
 
 #endif

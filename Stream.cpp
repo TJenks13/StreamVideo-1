@@ -24,16 +24,7 @@ const Video& Stream::getVideo() const {
     return video;
 }
 
-TvStream::TvStream(const Video& video, int occurrences)
-	: Stream(video, occurrences)
-{ }
-
-// for TV shows, the stream count is just the number of streams
-int TvStream::getStreamCount() const
-{
-	return getOccurrences();
-}
-
+// movie stream constructor
 MovieStream::MovieStream(const Video& video, int occurrences)
 	: Stream(video, occurrences)
 { }
@@ -44,7 +35,30 @@ int MovieStream::getStreamCount() const
 	return getOccurrences() * (getVideo().getHours() ? getVideo().getHours() : 1);
 }
 
+// type of movie stream
+std::string MovieStream::getType() const
+{
+	return "MOVIE";
+}
 
+// TV stream constructor
+TvStream::TvStream(const Video& video, int occurrences)
+	: Stream(video, occurrences)
+{ }
+
+// for TV shows, the stream count is just the number of streams
+int TvStream::getStreamCount() const
+{
+	return getOccurrences();
+}
+
+// type of tv stream
+std::string TvStream::getType() const
+{
+	return "TVSHOW";
+}
+
+// original stream constructor
 OriginalStream::OriginalStream(const Video& video, int occurrences)
 	: Stream(video, occurrences)
 { }
@@ -53,4 +67,10 @@ OriginalStream::OriginalStream(const Video& video, int occurrences)
 int OriginalStream::getStreamCount() const
 {
 	return getOccurrences();
+}
+
+// type of original stream
+std::string OriginalStream::getType() const
+{
+	return "ORIGINAL";
 }
