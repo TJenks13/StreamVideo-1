@@ -17,11 +17,12 @@ TEST_CASE( "Test Occurrence Method", "[Stream]" ) {
     Video vid("Star Wars",1,1,1,1);
 
     //Set occurrence of vid to 1
-    Stream vidInfo(vid,1);
+    TvStream tvStream(vid,1);
+    Stream* vidInfo = &tvStream;
 
 
     //Test if function return proper value '1'
-    REQUIRE(vidInfo.getOccurrences() == 1);
+    REQUIRE(vidInfo->getOccurrences() == 1);
 
 }
 
@@ -31,10 +32,11 @@ TEST_CASE("Test getVideo() method")
     Video vid("Star Wars",1,1,1,1);
 
     //Create Stream Object
-    Stream vidInfo(vid,1);
+    MovieStream movieStream(vid,1);
+    Stream* vidInfo = &movieStream;
 
     //Create copy of vid object
-    Video vid2 = vidInfo.getVideo();
+    Video vid2 = vidInfo->getVideo();
 
     //Test if getVideo() returns "Star Wars" from vid2
     REQUIRE(vid2.getTitle() == "Star Wars");
@@ -47,14 +49,15 @@ TEST_CASE("Ensure getVideo() also returned correct data about vid")
     Video vid("The Lord of the Rings: The Fellowship of the Ring", 0, 3, 18, 0);
 
     //Create Stream Object
-    Stream vidInfo(vid,1);
+    MovieStream stream(vid,1);
+    Stream* vidInfo = &stream;
 
     //Test if getVideo() returns "Star Wars" from vid2
-    REQUIRE(vidInfo.getVideo().getTitle() == "The Lord of the Rings: The Fellowship of the Ring");
-    REQUIRE(vidInfo.getVideo().getType() == 0);
-    REQUIRE(vidInfo.getVideo().getHours() == 3);
-    REQUIRE(vidInfo.getVideo().getMinutes() == 18);
-    REQUIRE(vidInfo.getVideo().getEpisodes() == 0);
+    REQUIRE(vidInfo->getVideo().getTitle() == "The Lord of the Rings: The Fellowship of the Ring");
+    REQUIRE(vidInfo->getVideo().getType() == 0);
+    REQUIRE(vidInfo->getVideo().getHours() == 3);
+    REQUIRE(vidInfo->getVideo().getMinutes() == 18);
+    REQUIRE(vidInfo->getVideo().getEpisodes() == 0);
 
 }
 

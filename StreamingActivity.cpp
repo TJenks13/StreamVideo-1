@@ -14,6 +14,7 @@
 #include "Account.hpp"
 
 void loadVideos(std::vector<Video>& videos);
+Stream* createStream(const Video& video, const int occurrences);
 
 int main() {
 
@@ -25,13 +26,14 @@ int main() {
     Account customer("Fred");
 
     // Some streams of these movies
-    Stream s1(videos[0], 3);
-    Stream s2(videos[1], 1);
-    Stream s3(videos[2], 2);
+    Stream* s1 = createStream(videos[0], 3);
+    Stream* s2 = createStream(videos[1], 1);
+    Stream* s3 = createStream(videos[2], 2);
 
     customer.addStream(s1);
     customer.addStream(s2);
     customer.addStream(s3);
+
 
     // Output account streaming report
     std::cout << customer.report() << '\n';
@@ -39,7 +41,22 @@ int main() {
     // Output account data report
     std::cout << customer.data() << '\n';
 
+    // clean up
+    delete s1;
+    delete s2;
+    delete s3;
+
     return 0;
+}
+
+Stream* createStream(const Video& video, const int occurrences)
+{
+	if(Video::MOVIE)
+		return new MovieStream(video, occurrences);
+	else if(Video::TVSHOW)
+		return new TvStream(video, occurrences);
+	else if(Video::ORIGINAL)
+		return new OriginalStream(video, occurrences);
 }
 
 void loadVideos(std::vector<Video>& videos)

@@ -24,7 +24,7 @@ std::string Account::getName() const {
 }
 
 // add a stream to this account
-void Account::addStream(const Stream& stream) {
+void Account::addStream(const Stream* stream) {
 
     streams.push_back(stream);
 }
@@ -46,40 +46,26 @@ std::string Account::report() const {
     int totalMinutes = 0;
 
     auto loopStart = streams;
-    for(Stream& stream : loopStart) 
+    for(const Stream* s : loopStart)
     {
 
         // title of stream
-        output << '\t' << stream.getVideo().getTitle();
+        output << '\t' << s->getVideo().getTitle();
 
         // current total hours and minutes
-        totalHours += stream.getVideo().getHours() * stream.getOccurrences();
-        totalMinutes += stream.getVideo().getMinutes() * stream.getOccurrences();
+        totalHours += s->getVideo().getHours() * s->getOccurrences();
+        totalMinutes += s->getVideo().getMinutes() * s->getOccurrences();
 
         // stream counts and originals
         int streamCount = 0;
         int originals = 0;
-        switch (stream.getVideo().getType()) {
 
-            // for movies, the stream count is the number of hours, with a minimum of 1
-            case Video::MOVIE:
-                streamCount += stream.getOccurrences() * (stream.getVideo().getHours() ? stream.getVideo().getHours() : 1);
-                break;
+        streamCount += s->getStreamCount();
 
-            // for TV shows, the stream count is just the number of streams
-            case Video::TVSHOW:
-                streamCount += stream.getOccurrences();
-                break;
-
-            // for TV shows, the stream count is just the number of streams
-            case Video::ORIGINAL:
-                originals += stream.getOccurrences();
-                streamCount += stream.getOccurrences();
-                break;
-        }
+        if(s->getType() == "ORIGINAL")
+        	originals += s->getOccurrences();
 
         // stream counts for this video
-        std::ostringstream out_str_stream;
         output << '\t' << streamCount << '\n';
 
         totalStreams += streamCount;
@@ -112,52 +98,27 @@ std::string Account::data() const {
 
     // list of streams
     auto loopStart = streams;
-    for(Stream& stream : loopStart) 
+    for(const Stream* s : loopStart)
     {
 
         // customer name
         output << name << ',';
 
         // stream type
-        switch (stream.getVideo().getType()) {
-
-            // for movies, the stream count is the number of hours, with a minimum of 1
-            case Video::MOVIE:
-                output << "MOVIE";
-                break;
-
-            // for TV shows, the stream count is just the number of streams
-            case Video::TVSHOW:
-                output << "TVSHOW";
-                break;
-
-            // for TV shows, the stream count is just the number of streams
-            case Video::ORIGINAL:
-                output << "ORIGINAL";
-                break;
-        }       
+        output << s->getType();
 
         // stream title
-        output << ',' << stream.getVideo().getTitle();
+        output << ',' << s->getVideo().getTitle();
 
         // stream hours and minutes
-        output << ',' << (stream.getVideo().getHours() * stream.getOccurrences());
-        output << ',' << (stream.getVideo().getMinutes() * stream.getOccurrences());
+        output << ',' << (s->getVideo().getHours() * s->getOccurrences());
+        output << ',' << (s->getVideo().getMinutes() *s->getOccurrences());
 
         // stream counts
         output << ',';
-        switch (stream.getVideo().getType()) {
 
-            // for movies, the stream count is the number of hours, with a minimum of 1
-            case Video::MOVIE:
-                output << (stream.getOccurrences() * (stream.getVideo().getHours() ? stream.getVideo().getHours() : 1));
-                break;
-
-            // all others are just the number of occurrences
-            default:
-                output << stream.getOccurrences();
-                break;
-        }
+        // stream counts
+        output << s->getStreamCount();
 
         output << '\n';
     }
