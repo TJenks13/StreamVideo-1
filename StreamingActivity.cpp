@@ -13,22 +13,17 @@
 #include "Video.hpp"
 #include "Stream.hpp"
 #include "Account.hpp"
-#include "DataRecord.hpp"
 
 // create stream object depending on video type
 Stream* createStream(const Video& video, const int occurrences);
 
-// deserializes text to create an object for use with creating videos.
-void createRecords(std::vector<DataRecord>& data);
-
-// create a video using object from deserialization
-void createVideos(std::vector<Video>& videos);
+void loadVideos(std::vector<Video>& videos);
 
 int main() {
 
     // Load videos from data file
     std::vector<Video> videos;
-    createVideos(videos);
+    loadVideos(videos);
 
     // Account
     Account customer("Fred");
@@ -56,53 +51,6 @@ int main() {
     return 0;
 }
 
-// deserializes text to create an object for use with creating videos.
-void createRecords(std::vector<DataRecord>& data)
-{
-	std::ifstream invideo("videos.csv");
-	std::string line;
-	while (getline(invideo, line)) {
-		DataRecord datum;
-	    std::istringstream sline(line);
-
-	    // video type
-	    std::string stype;
-	    std::getline(sline, stype, ',');
-        datum.setType(stype);
-
-	    // video title
-	    std::string title;
-	    std::getline(sline, title, ',');
-        datum.setTitle(title);
-
-	    // video hours
-	    std::string shours;
-	    std::getline(sline, shours, ',');
-	    std::stringstream strhours(shours);
-	    int hours;
-	    strhours >> hours;
-        datum.setHours(hours);
-
-	    // video minutes
-	    std::string sminutes;
-	    std::getline(sline, sminutes, ',');
-	    std::stringstream strminutes(sminutes);
-	    int minutes;
-	    strminutes >> minutes;
-        datum.setMinutes(minutes);
-
-	    // video episodes
-	    std::string sepisodes;
-	    std::getline(sline, sepisodes, ',');
-	    std::stringstream strepisodes(sepisodes);
-	    int episodes;
-        strepisodes >> episodes;
-        datum.setEpisodes(episodes);
-
-        data.push_back(datum);
-	}
-	    invideo.close();
-}
 
 // create stream object based on video type
 Stream* createStream(const Video& video, const int occurrences)
@@ -115,14 +63,53 @@ Stream* createStream(const Video& video, const int occurrences)
 		return new OriginalStream(video, occurrences);
 }
 
-// create video object
-void createVideos(std::vector<Video>& videos)
+// load videos from file
+void loadVideos(std::vector<Video>& videos)
 {
-	std::vector<DataRecord> data;
-    createRecords(data);
-    for(auto& datum : data)
-    {
-    	Video v(datum);
-    	videos.push_back(v);
-    }
+	std::ifstream invideo("videos.csv");
+	std::string line;
+	while (getline(invideo, line)) {
+	    std::istringstream sline(line);
+
+	    // video type
+	    std::string stype;
+	    std::getline(sline, stype, ',');
+	    int type;
+	    if(stype == "MOVIE")
+	    	type = Video::MOVIE;
+	    else if(stype == "TVSHOW")
+	    	type = Video::TVSHOW;
+	    else if(stype == "ORIGINAL")
+	    	type = Video::ORIGINAL;
+	    else
+	    	continue;
+
+	    // video title
+	    std::string title;
+	    std::getline(sline, title, ',');
+
+	    // video hours
+	    std::string shours;
+	    std::getline(sline, shours, ',');
+	    std::stringstream strhours(shours);
+	    int hours;
+	    strhours >> hours;
+
+	    // video minutes
+	    std::string sminutes;
+	    std::getline(sline, sminutes, ',');
+	    std::stringstream strminutes(sminutes);
+	    int minutes;
+	    strminutes >> minutes;
+
+	    // video episodes
+	    std::string sepisodes;
+	    std::getline(sline, sepisodes, ',');
+	    std::stringstream strepisodes(sepisodes);
+	    int episodes;
+        strepisodes >> episodes;
+
+        videos.push_back(Video(title, type, hours, minutes, episodes));
+	}
+	    invideo.close();
 }
