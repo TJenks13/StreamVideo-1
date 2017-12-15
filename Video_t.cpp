@@ -32,9 +32,9 @@ TEST_CASE( "Construct video with DataRecord", "[Video]")
 	REQUIRE(dr.getType() == "MOVIE");
 
 	Video v(dr);
-
 	REQUIRE(v.getTitle() == "Balto");
-	REQUIRE(v.getType() == Video::MOVIE);
+	REQUIRE(v.getType() == 0);
 	REQUIRE(v.getHours() == 3);
 	REQUIRE(v.getMinutes() == 18);
 	REQUIRE(v.getEpisodes() == 0);
+}
