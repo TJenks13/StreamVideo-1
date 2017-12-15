@@ -7,6 +7,8 @@
 #ifndef VIDEO_H
 #define VIDEO_H
 
+#include "DataRecord.hpp"
+
 #include <string>
 
 class Video {
@@ -18,6 +20,9 @@ public:
 
     // constructor
     Video(const std::string& title, int type, int hours, int minutes, int episodes);
+
+    // constructor with data record
+    Video(const DataRecord& datum);
 
     // video title
     const std::string& getTitle() const;
