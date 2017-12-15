@@ -38,5 +38,3 @@ TEST_CASE( "Construct video with DataRecord", "[Video]")
 	REQUIRE(v.getHours() == 3);
 	REQUIRE(v.getMinutes() == 18);
 	REQUIRE(v.getEpisodes() == 0);
-
-}
