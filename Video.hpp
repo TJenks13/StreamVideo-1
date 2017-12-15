@@ -2,12 +2,15 @@
   Video.hpp
 
   Include file for Video class
+
+  Include file for RunTime class
 */
 
 #ifndef VIDEO_H
 #define VIDEO_H
 
 #include <string>
+#incude "RunTime.hpp"
 
 class Video {
 public:
@@ -15,6 +18,7 @@ public:
     static const int MOVIE      = 0;
     static const int TVSHOW     = 1;
     static const int ORIGINAL   = 2;
+
 
     // constructor
     Video(const std::string& title, int type, int hours, int minutes, int episodes);
@@ -34,8 +38,6 @@ public:
     // number of episodes
     int getEpisodes() const;
 
-    // set video length
-    void setLength(int hours, int minutes);
 
 private:
     std::string title;
@@ -44,5 +46,8 @@ private:
     int minutes;
     int episodes;
 };
+
+
+
 
 #endif
