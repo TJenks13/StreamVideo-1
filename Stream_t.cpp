@@ -249,3 +249,35 @@ TEST_CASE("Stream Count Original", "[Stream]")
 	REQUIRE(originalStream.getStreamCount() == expectedResult);
 
 }
+
+TEST_CASE("Get Hours", "[Stream]")
+{
+	const int type = Video::ORIGINAL;
+	const int hours = 5;
+	const int minutes = 2;
+	const int episodes = 3;
+	const int timesWatched = 4;
+
+	Video video("Test Original Stream Count", type, hours, minutes, episodes);
+
+	OriginalStream originalStream(video, timesWatched);
+
+	REQUIRE(originalStream.getHours() == 20);
+
+}
+
+TEST_CASE("Get Minutes", "[Stream]")
+{
+	const int type = Video::ORIGINAL;
+	const int hours = 5;
+	const int minutes = 2;
+	const int episodes = 3;
+	const int timesWatched = 4;
+
+	Video video("Test Original Stream Count", type, hours, minutes, episodes);
+
+	OriginalStream originalStream(video, timesWatched);
+
+	REQUIRE(originalStream.getMinutes() == 8);
+
+}
