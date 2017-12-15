@@ -2,7 +2,7 @@
 # StreamingActivity
 #
 
-OBJS=StreamingActivity.o Video.o Stream.o Account.o DataRecord.o
+OBJS=StreamingActivity.o Video.o Stream.o Account.o 
 TOBJS=Video_t.o Stream_t.o Account_t.o
 EXE=StreamingActivity Video_t Stream_t Account_t
 
@@ -20,14 +20,14 @@ run : StreamingActivity
 StreamingActivity : $(OBJS)
 	$(GCC) $^ -o $@
 
-StreamingActivity.o: StreamingActivity.cpp Video.hpp Stream.hpp Account.hpp DataRecord.hpp
+StreamingActivity.o: StreamingActivity.cpp Video.hpp Stream.hpp Account.hpp 
 	$(GCC) $(CFLAGS) -c $<
 
 # Video
-Video.o: Video.cpp Video.hpp DataRecord.hpp
+Video.o: Video.cpp Video.hpp 
 	$(GCC) $(CFLAGS) -c $<
 
-Video_t : Video_t.o Video.o DataRecord.o
+Video_t : Video_t.o Video.o 
 	$(GCC) $^ -o $@
 
 Video_t.o: Video_t.cpp Video.hpp catch.hpp
@@ -37,7 +37,7 @@ Video_t.o: Video_t.cpp Video.hpp catch.hpp
 Stream.o: Stream.cpp Stream.hpp Video.hpp
 	$(GCC) $(CFLAGS) -c $<
 
-Stream_t : Stream_t.o Stream.o Video.o DataRecord.o
+Stream_t : Stream_t.o Stream.o Video.o 
 	$(GCC) $^ -o $@
 
 Stream_t.o: Stream_t.cpp Stream.hpp catch.hpp
@@ -47,14 +47,10 @@ Stream_t.o: Stream_t.cpp Stream.hpp catch.hpp
 Account.o: Account.cpp Account.hpp Video.hpp Stream.hpp
 	$(GCC) $(CFLAGS) -c $<
 
-Account_t : Account_t.o Account.o Stream.o Video.o DataRecord.o
+Account_t : Account_t.o Account.o Stream.o Video.o 
 	$(GCC) $^ -o $@
 
 Account_t.o: Account_t.cpp Account.hpp catch.hpp
-	$(GCC) $(CFLAGS) -c $<
-
-# DataRecord
-DataRecord.o: DataRecord.cpp DataRecord.hpp
 	$(GCC) $(CFLAGS) -c $<
 
 # Note: is not part of clean
