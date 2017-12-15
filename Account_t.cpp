@@ -6,9 +6,10 @@
 
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
-#include <sstream>
 #include "Account.hpp"
 #include "Video.hpp"
+
+#include <sstream>
 
 TEST_CASE( "No streaming", "[Account]" ) {
 
