@@ -53,8 +53,8 @@ std::string Account::report() const {
         output << '\t' << s->getVideo().getTitle();
 
         // current total hours and minutes
-        totalHours += s->getVideo().getHours() * s->getOccurrences();
-        totalMinutes += s->getVideo().getMinutes() * s->getOccurrences();
+        totalHours += s->getVideo().getHours() * s->getTimesWatched();
+        totalMinutes += s->getVideo().getMinutes() * s->getTimesWatched();
 
         // stream counts and originals
         int streamCount = 0;
@@ -63,7 +63,7 @@ std::string Account::report() const {
         streamCount += s->getStreamCount();
 
         if(s->getType() == "ORIGINAL")
-        	originals += s->getOccurrences();
+        	originals += s->getTimesWatched();
 
         // stream counts for this video
         output << '\t' << streamCount << '\n';
@@ -111,8 +111,8 @@ std::string Account::data() const {
         output << ',' << s->getVideo().getTitle();
 
         // stream hours and minutes
-        output << ',' << (s->getVideo().getHours() * s->getOccurrences());
-        output << ',' << (s->getVideo().getMinutes() *s->getOccurrences());
+        output << ',' << (s->getVideo().getHours() * s->getTimesWatched());
+        output << ',' << (s->getVideo().getMinutes() *s->getTimesWatched());
 
         // stream counts
         output << ',';

@@ -15,16 +15,16 @@ class Stream {
 public:
 
     // constructor
-    Stream(const Video& video, int occurrences);
+    Stream(const Video& video, int timesWatched);
 
     // create stream object based on video type
-    static Stream* makeStream(const Video& video, const int occurrences);
+    static Stream* makeStream(const Video& video, const int timesWatched);
 
     // destructor
     virtual ~Stream() = default;
 
     // number of times watched
-    int getOccurrences() const;
+    int getTimesWatched() const;
 
     // video rented
     const Video& getVideo() const;
@@ -35,7 +35,7 @@ public:
 
 private:
     Video video;
-    int occurrences;
+    int timesWatched;
 };
 
 
@@ -44,7 +44,7 @@ class MovieStream : public Stream
 public:
 
 	// constructor
-	MovieStream(const Video& video, int occurrences);
+	MovieStream(const Video& video, int timesWatched);
 
 	// For movies, stream count is the number of hours, with a minimum of 1
 	int getStreamCount() const override;
@@ -58,7 +58,7 @@ class TvStream : public Stream
 public:
 
 	// constructor
-	TvStream(const Video& video, int occurrences);
+	TvStream(const Video& video, int timesWatched);
 
 	// for TV shows, the stream count is just the number of streams
 	int getStreamCount() const override;
@@ -73,7 +73,7 @@ class OriginalStream : public Stream
 public:
 
 	// constructor
-	OriginalStream(const Video& video, int occurrences);
+	OriginalStream(const Video& video, int timesWatched);
 
 	// for TV shows, the stream count is just the number of streams
 	int getStreamCount() const override;
