@@ -41,11 +41,11 @@ TEST_CASE( "Report with movie stream", "[Account]")
 	int hours = 2;
 	int minutes = 10;
 	int episodes = 1;
-	int occurrences = 2;
+	int timesWatched = 2;
 
 	Video videoTest("Test Movie", Video::MOVIE, hours, minutes, episodes);
 
-	MovieStream movieStream(videoTest,occurrences);
+	MovieStream movieStream(videoTest,timesWatched);
 	const Stream* stream = &movieStream;
 
 	customer.addStream(stream);
@@ -55,16 +55,16 @@ TEST_CASE( "Report with movie stream", "[Account]")
 	output << "Streams:" << '\n';
 	output << '\t' << "Test Movie";
 
-	output << '\t' << (occurrences * hours) << '\n';
+	output << '\t' << (timesWatched * hours) << '\n';
 	output << '\n';
 
 	// total stream counts
-	output << "Total Stream Events: " << (occurrences * hours) << '\n';
+	output << "Total Stream Events: " << (timesWatched * hours) << '\n';
 
 	// total non-original stream counts
-	output << "Non-Original Stream Events: " << (occurrences * hours) << '\n';
+	output << "Non-Original Stream Events: " << (timesWatched * hours) << '\n';
 	// total time
-	output << "Total Time: " << (hours * occurrences) << ":" << (occurrences * minutes) << '\n';
+	output << "Total Time: " << (hours * timesWatched) << ":" << (timesWatched * minutes) << '\n';
 
 	REQUIRE(customer.report() == output.str());
 }
@@ -76,12 +76,12 @@ TEST_CASE( "Report with TV show stream", "[Account]")
 	int hours = 1;
 	int minutes = 10;
 	int episodes = 1;
-	int occurrences = 1;
+	int timesWatched = 1;
 
 
 	Video videoTest("Test Show", Video::TVSHOW, hours, minutes, episodes);
 
-	TvStream tvStream(videoTest, occurrences);
+	TvStream tvStream(videoTest, timesWatched);
 	const Stream* stream = &tvStream;
 
 	customer.addStream(stream);
@@ -91,7 +91,7 @@ TEST_CASE( "Report with TV show stream", "[Account]")
 	output << "Streams:" << '\n';
 	output << '\t' << "Test Show";
 
-	output << '\t' << occurrences << '\n';
+	output << '\t' << timesWatched << '\n';
 	output << '\n';
 
 	// total stream counts
@@ -111,11 +111,11 @@ TEST_CASE( "Report with Original stream", "[Account]") {
 	int hours = 1;
 	int minutes = 10;
 	int episodes = 1;
-	int occurrences = 2;
+	int timesWatched = 2;
 
 	Video videoTest("Test Original", Video::ORIGINAL, hours, minutes, episodes);
 
-	OriginalStream originalStream(videoTest, occurrences);
+	OriginalStream originalStream(videoTest, timesWatched);
 	const Stream* stream = &originalStream;
 
 	customer.addStream(stream);
@@ -125,16 +125,16 @@ TEST_CASE( "Report with Original stream", "[Account]") {
 	output << "Streams:" << '\n';
 	output << '\t' << "Test Original";
 
-	output << '\t' << occurrences << '\n';
+	output << '\t' << timesWatched << '\n';
 	output << '\n';
 
 	// total stream counts
-	output << "Total Stream Events: " << occurrences << '\n';
+	output << "Total Stream Events: " << timesWatched << '\n';
 
 	// total non-original stream counts
-	output << "Non-Original Stream Events: " << (occurrences - occurrences) << '\n';
+	output << "Non-Original Stream Events: " << (timesWatched - timesWatched) << '\n';
 	// total time
-	output << "Total Time: " << (occurrences * hours) << ":" << (occurrences * minutes) << '\n';
+	output << "Total Time: " << (timesWatched * hours) << ":" << (timesWatched * minutes) << '\n';
 
 	REQUIRE(customer.report() == output.str());
 }
@@ -153,11 +153,11 @@ TEST_CASE("Data with MOVIE stream", "[Account]") {
 	int hours = 1;
 	int minutes = 10;
 	int episodes = 0;
-	int occurrences = 1;
+	int timesWatched = 1;
 
 	Video videoTest("Balto", Video::MOVIE, hours, minutes, episodes);
 
-	MovieStream movieStream(videoTest,occurrences);
+	MovieStream movieStream(videoTest,timesWatched);
 	const Stream* stream = &movieStream;
 
 	customer.addStream(stream);
@@ -170,7 +170,7 @@ TEST_CASE("Data with MOVIE stream", "[Account]") {
 	output << ',' << hours;
 	output << ',' << minutes;
 	output << ',';
-	output << (occurrences * hours);
+	output << (timesWatched * hours);
 	output << '\n';
 
 	REQUIRE(customer.data() == output.str());
@@ -185,11 +185,11 @@ TEST_CASE("Data with TVSHOW stream", "[Account]") {
 	int hours = 1;
 	int minutes = 10;
 	int episodes = 1;
-	int occurrences = 1;
+	int timesWatched = 1;
 
 	Video videoTest("Test Show", Video::TVSHOW, hours, minutes, episodes);
 
-	TvStream tvStream(videoTest,occurrences);
+	TvStream tvStream(videoTest,timesWatched);
 	const Stream* stream = &tvStream;
 
 	customer.addStream(stream);
@@ -202,7 +202,7 @@ TEST_CASE("Data with TVSHOW stream", "[Account]") {
 	output << ',' << hours;
 	output << ',' << minutes;
 	output << ',';
-	output << (occurrences * hours);
+	output << (timesWatched * hours);
 	output << '\n';
 
 	REQUIRE(customer.data() == output.str());
@@ -217,11 +217,11 @@ TEST_CASE("Data with ORIGINAL stream", "[Account]") {
 	int hours = 1;
 	int minutes = 10;
 	int episodes = 1;
-	int occurrences = 1;
+	int timesWatched = 1;
 
 	Video videoTest("Test Original", Video::ORIGINAL, hours, minutes, episodes);
 
-	OriginalStream originalStream(videoTest,occurrences);
+	OriginalStream originalStream(videoTest,timesWatched);
 	const Stream* stream = &originalStream;
 
 	customer.addStream(stream);
@@ -234,7 +234,7 @@ TEST_CASE("Data with ORIGINAL stream", "[Account]") {
 	output << ',' << hours;
 	output << ',' << minutes;
 	output << ',';
-	output << (occurrences * hours);
+	output << (timesWatched * hours);
 	output << '\n';
 
 	REQUIRE(customer.data() == output.str());
