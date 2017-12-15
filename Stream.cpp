@@ -12,6 +12,18 @@ Stream::Stream(const Video& video, int occurrences)
     : video(video), occurrences(occurrences)
 { }
 
+// create stream object based on video type
+Stream* Stream::makeStream(const Video& video, const int occurrences)
+{
+	if(video.getType() == Video::MOVIE)
+		return new MovieStream(video, occurrences);
+	else if(video.getType() == Video::TVSHOW)
+		return new TvStream(video, occurrences);
+	else if(video.getType() == Video::ORIGINAL)
+		return new OriginalStream(video, occurrences);
+}
+
+
 // number of times watched
 int Stream::getOccurrences() const {
 

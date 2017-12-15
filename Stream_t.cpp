@@ -61,6 +61,47 @@ TEST_CASE("Ensure getVideo() also returned correct data about vid")
 
 }
 
+TEST_CASE("Make Movie Stream", "[Stream]")
+{
+	const int type = Video::MOVIE;
+	const int hours = 1;
+	const int minutes = 2;
+	const int episodes = 3;
+	const int occurrences = 4;
+	Video video("Test Movie Stream", type, hours, minutes, episodes);
+
+	Stream* s = Stream::makeStream(video, occurrences);
+
+	REQUIRE(s->getType() == "MOVIE");
+}
+
+TEST_CASE("Make TV Stream", "[Stream]")
+{
+	const int type = Video::TVSHOW;
+	const int hours = 1;
+	const int minutes = 2;
+	const int episodes = 3;
+	const int occurrences = 4;
+	Video video("Test TV Show Stream", type, hours, minutes, episodes);
+
+	Stream* s = Stream::makeStream(video, occurrences);
+
+	REQUIRE(s->getType() == "TVSHOW");
+}
+
+TEST_CASE("Make Original Stream", "[Stream]")
+{
+	const int type = Video::ORIGINAL;
+	const int hours = 1;
+	const int minutes = 2;
+	const int episodes = 3;
+	const int occurrences = 4;
+	Video video("Test Original Stream", type, hours, minutes, episodes);
+
+	Stream* s = Stream::makeStream(video, occurrences);
+
+	REQUIRE(s->getType() == "ORIGINAL");
+}
 
 TEST_CASE("TV Show Stream", "[Stream]")
 {
