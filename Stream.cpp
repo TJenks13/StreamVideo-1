@@ -36,6 +36,14 @@ const Video& Stream::getVideo() const {
     return video;
 }
 
+int Stream::getHours() const {
+	return video.getHours() * timesWatched;
+}
+
+int Stream::getMinutes() const {
+	return video.getMinutes() * timesWatched;
+}
+
 // movie stream constructor
 MovieStream::MovieStream(const Video& video, int timesWatched)
 	: Stream(video, timesWatched)

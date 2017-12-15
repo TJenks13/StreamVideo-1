@@ -33,6 +33,9 @@ public:
 
     virtual std::string getType() const = 0;
 
+    int getHours() const;
+    int getMinutes() const;
+
 private:
     Video video;
     int timesWatched;
