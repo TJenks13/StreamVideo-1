@@ -14,9 +14,7 @@
 #include "Stream.hpp"
 #include "Account.hpp"
 
-// create stream object depending on video type
-Stream* createStream(const Video& video, const int occurrences);
-
+// reads file to load videos
 void loadVideos(std::vector<Video>& videos);
 
 int main() {
@@ -29,9 +27,9 @@ int main() {
     Account customer("Fred");
 
     // Some streams of these movies
-    Stream* s1 = createStream(videos[0], 3);
-    Stream* s2 = createStream(videos[1], 1);
-    Stream* s3 = createStream(videos[2], 2);
+    Stream* s1 = Stream::makeStream(videos[0], 3);
+    Stream* s2 = Stream::makeStream(videos[1], 1);
+    Stream* s3 = Stream::makeStream(videos[2], 2);
 
     customer.addStream(s1);
     customer.addStream(s2);
@@ -49,18 +47,6 @@ int main() {
     delete s3;
 
     return 0;
-}
-
-
-// create stream object based on video type
-Stream* createStream(const Video& video, const int occurrences)
-{
-	if(video.getType() == Video::MOVIE)
-		return new MovieStream(video, occurrences);
-	else if(video.getType() == Video::TVSHOW)
-		return new TvStream(video, occurrences);
-	else if(video.getType() == Video::ORIGINAL)
-		return new OriginalStream(video, occurrences);
 }
 
 // load videos from file

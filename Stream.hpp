@@ -17,6 +17,9 @@ public:
     // constructor
     Stream(const Video& video, int occurrences);
 
+    // create stream object based on video type
+    static Stream* makeStream(const Video& video, const int occurrences);
+
     // destructor
     virtual ~Stream() = default;
 
