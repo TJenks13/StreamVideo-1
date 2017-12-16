@@ -9,8 +9,17 @@
 // constructor
 Video::Video(const std::string& title, int type, int hours, int minutes, int episodes)
     : title(title), type(type), hours(hours), minutes(minutes), episodes(episodes)
-{ }
+{}
 
+RunTime::RunTime()
+{
+
+}
+
+RunTime::RunTime(int hours, int minutes)
+{
+
+}
 
 // video title
 const std::string& Video::getTitle() const {
@@ -45,6 +54,7 @@ int Video::getEpisodes() const {
 
     return episodes;
 }
+
 
 
 

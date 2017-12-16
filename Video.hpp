@@ -11,8 +11,20 @@
 
 #include <string>
 
+class RunTime {
 
-class Video {
+    private:
+        int minutes;
+        int hours;
+
+    public:
+        RunTime();
+        RunTime(int hours, int minutes);
+
+};
+
+
+class Video{
 public:
 
     static const int MOVIE      = 0;
@@ -46,9 +58,7 @@ private:
     int minutes;
     int episodes;
 
-
 };
-
 
 
 
