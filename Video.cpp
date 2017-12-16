@@ -11,7 +11,6 @@ Video::Video(const std::string& title, int type, int hours, int minutes, int epi
     : title(title), type(type), hours(hours), minutes(minutes), episodes(episodes)
 { }
 
-
 // video title
 const std::string& Video::getTitle() const {
 

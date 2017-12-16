@@ -13,6 +13,7 @@
 #include "Video.hpp"
 #include "Stream.hpp"
 #include "Account.hpp"
+#include "RunTime.hpp"
 
 // reads file to load videos
 void loadVideos(std::vector<Video>& videos);
