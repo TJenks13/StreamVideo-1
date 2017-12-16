@@ -9,9 +9,9 @@
 #ifndef VIDEO_H
 #define VIDEO_H
 
+#include "RunTime.hpp"
 
 #include <string>
-
 
 class Video {
 public:
@@ -46,8 +46,6 @@ private:
     int hours;
     int minutes;
     int episodes;
-
-
 };
 
 
