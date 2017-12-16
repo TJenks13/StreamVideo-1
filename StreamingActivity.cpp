@@ -55,47 +55,47 @@ void loadVideos(std::vector<Video>& videos)
 	std::ifstream invideo("videos.csv");
 	std::string line;
 	while (getline(invideo, line)) {
-	    std::istringstream sline(line);
+	    std::istringstream fileLine(line);
 
 	    // video type
-	    std::string stype;
-	    std::getline(sline, stype, ',');
+	    std::string vidType;
+	    std::getline(fileLine, vidType, ',');
 	    int type;
-	    if(stype == "MOVIE")
+	    if(vidType == "MOVIE")
 	    	type = Video::MOVIE;
-	    else if(stype == "TVSHOW")
+	    else if(vidType == "TVSHOW")
 	    	type = Video::TVSHOW;
-	    else if(stype == "ORIGINAL")
+	    else if(vidType == "ORIGINAL")
 	    	type = Video::ORIGINAL;
 	    else
 	    	continue;
 
 	    // video title
-	    std::string title;
-	    std::getline(sline, title, ',');
+	    std::string videoTitle;
+	    std::getline(fileLine, videoTitle, ',');
 
 	    // video hours
-	    std::string shours;
-	    std::getline(sline, shours, ',');
-	    std::stringstream strhours(shours);
+	    std::string inHours;
+	    std::getline(fileLine, inHours, ',');
+	    std::stringstream videoHours(inHours);
 	    int hours;
-	    strhours >> hours;
+	    videoHours >> hours;
 
 	    // video minutes
-	    std::string sminutes;
-	    std::getline(sline, sminutes, ',');
-	    std::stringstream strminutes(sminutes);
+	    std::string inMinutes;
+	    std::getline(fileLine, inMinutes, ',');
+	    std::stringstream videoMinutes(inMinutes);
 	    int minutes;
-	    strminutes >> minutes;
+	    videoMinutes >> minutes;
 
 	    // video episodes
-	    std::string sepisodes;
-	    std::getline(sline, sepisodes, ',');
-	    std::stringstream strepisodes(sepisodes);
+	    std::string inEpisodes;
+	    std::getline(fileLine, inEpisodes, ',');
+	    std::stringstream videoEpisodes(inEpisodes);
 	    int episodes;
-        strepisodes >> episodes;
+        videoEpisodes >> episodes;
 
-        videos.push_back(Video(title, type, hours, minutes, episodes));
+        videos.push_back(Video(videoTitle, type, hours, minutes, episodes));
 	}
 	    invideo.close();
 }
